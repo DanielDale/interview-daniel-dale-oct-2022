@@ -1,0 +1,44 @@
+<h1>
+  <button id="createUrlButton">Create URL</button>
+  <input id="url" type="text" />
+  <div id="links"></div>
+</h1>
+
+<script>
+  const urlText = document.getElementById("url").value;
+  const createUrlButton = document.getElementById("createUrlButton");
+  const linksDiv = document.getElementById("links");
+
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch("/getAllLinks", {
+      methods: "GET",
+      headers: { "Content-Type": "application/json" },
+    }).then(async (results) => {
+      const resData = await results.json();
+      for (let urlObj of resData) {
+        createBtnByUrl(urlObj);
+      }
+    });
+
+
+
+    createUrlButton.onclick = () => {
+      fetch(`/createLink?url=${urlText}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      }).then((res) => {
+        console.log(res);
+      });
+    };
+    // Your code goes here
+  });
+
+  const createBtnByUrl = (obj) => {
+    let testBtn = document.createElement("button");
+    linksDiv.appendChild(testBtn);
+    testBtn.textContent = obj.id;
+    testBtn.onclick = () => {
+      window.location = obj.redirect;
+    };
+  };
+</script>
