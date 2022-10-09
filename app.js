@@ -16,6 +16,8 @@ app.get("*", async (req, res) => {
   console.debug(req.params);
   const requestedId = req.params[0].split("/")[1];
   let url = await db.getUrl(requestedId);
+
+  // Don't throw error when the url isn't supplied
   if (url[0]?.url) {
     url = url[0].url;
     const shortenedObject = {
