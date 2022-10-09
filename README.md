@@ -1,5 +1,5 @@
 # Running #
-To get to run, do the following with the current lts version for node (v16.17.1):
+To get to run, do the following with the current LTS version for node (v16.17.1):
 
 ```
 npm install
