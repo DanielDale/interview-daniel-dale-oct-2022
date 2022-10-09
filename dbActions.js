@@ -17,7 +17,8 @@ exports.getShortenedFromUrl = (url) => {
 	.where('url', url)
 }
 
+// Insert new value and return the shortened url
 exports.insertNewUrl = (url, shortened) => {
 	return knex('links')
-	.insert([{url: url}, {shortened: shortened}])
+	.insert([{url: url, shortened: shortened}], ['shortened'])
 }

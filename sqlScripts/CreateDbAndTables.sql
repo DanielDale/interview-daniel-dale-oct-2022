@@ -1,8 +1,7 @@
 CREATE TABLE links(
-  id INTEGER PRIMARY KEY ASC,
   url TEXT,
   shortened TEXT
 );
 
-INSERT INTO links (url, shortened) VALUES('www.google.com', 'test');
-
+INSERT INTO links (url, shortened) VALUES('http://www.google.com', 'google');
+INSERT INTO links (url, shortened) VALUES('http://www.ebay.co.uk', 'ebay');

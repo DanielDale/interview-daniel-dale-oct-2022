@@ -3,18 +3,7 @@ const app = express()
 const port = 3000
 const {nanoid} = require('nanoid')
 
-
-
-const URL = {
-  id: 'Google',
-  redirect: 'http://www.google.com',
-}
-const URL2 = {
-  id: 'Ebay',
-  redirect: 'http://www.ebay.co.uk'
-}
-
-const MockDatabase = [URL, URL2]
+const db = require('./controller.js')
 
 app.use(express.static('./web'))
 
@@ -22,37 +11,33 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
-app.get('/getAllLinks', (req, res) => {
-  res.json(MockDatabase);
-})
-
-app.get('*', (req, res) => {
+// Route the ability to redirect to site using link
+app.get('*', async (req, res) => {
 
   console.debug(req.params)
-
   const requestedId = req.params[0].split('/')[1]
+  let url = await db.getUrl(requestedId)
+  url = url[0].url
+  const shortenedObject = {
+    id: requestedId,
+    redirect: url  
+  }
 
-   const foundObject = MockDatabase.find((object) => {
-    return object.id === requestedId 
-   })
-
-  //res.json(foundObject)
-  res.redirect(foundObject.redirect);
+  // Redirect to site using shortened link
+  res.redirect(shortenedObject.redirect);
   console.log('THIS WAS CALLED')
 })
 
-app.post('/createLink', (req, res) => {
-  console.debug(req.query)
-
+// Route to add a new link and return to UI
+app.post('/createLink', async (req, res) => {
   const newUrl = {
-    id: nanoid(),
+    id: nanoid(5),
     redirect: req.query.url
   }
-  MockDatabase.push(newUrl)
 
-  res.json(newUrl)
+  const result = await db.insertUrl(newUrl.redirect, newUrl.id)
+  res.json({id: result[0].shortened})
 })
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
