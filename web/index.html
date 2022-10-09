@@ -1,0 +1,31 @@
+<head>
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./scripts.js"></script>
+</head>
+<div class="container">
+    <div class="generator" id="genStep1">
+        <h2>URL Shortener</h2>
+        <div class="text-container">
+            <input type="text" id="urlInput"></input>
+        </div>
+        <br />
+        <button class="btn btn-large" id="createUrlButton">
+            Shorten Url
+        </button>
+    </div>
+    <div class="generatorResult" id="genStep2">
+        <h2> Link Successfuly Generated</h2>
+        <div class="text-container generated">
+            <a id="generatedLink"></a>
+            <button onclick="genLinkCopy()" class="btn btn-small">
+                Copy
+            </button>
+        </div>
+
+        <br />
+        <button onclick="reset()" class="btn btn-large">
+            Generate New
+        </button>
+    </div>
+</div>

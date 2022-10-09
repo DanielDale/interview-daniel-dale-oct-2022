@@ -2,9 +2,10 @@
   "name": "payroc-interview-daniel-dale",
   "version": "1.0.0",
   "description": "Daniel Dale's solution for Payroc code interview",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "keywords": [
     "nodejs"
@@ -14,6 +15,8 @@
   "dependencies": {
     "express": "^4.18.1",
     "knex": "^2.3.0",
+    "nanoid": "^3.1.30",
+    "nodemon": "^2.0.20",
     "sqlite3": "^5.1.2"
   },
   "devDependencies": {
